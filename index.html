@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Interativo: Terras Raras</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fontes Google - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              900: '#064e3b',
+              950: '#022c22',
+            },
+            tech: {
+              bg: '#0a0f1d',
+              card: '#111827',
+              border: '#1f2937',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #090d16;
+      color: #f3f4f6;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #34d399 0%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between items-center p-4 sm:p-6 md:p-8 relative overflow-x-hidden">
+
+  <!-- Background decorative elements -->
+  <div class="fixed top-[-10%] left-[-10%] w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Header Container -->
+  <header class="w-full max-w-3xl flex justify-between items-center py-4 mb-4 z-10">
+    <div class="flex items-center gap-2">
+      <div class="p-2 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-emerald-400">
+        <i data-lucide="atom" class="w-6 h-6"></i>
+      </div>
+      <span class="font-bold text-lg tracking-wider text-gray-200">GEO<span class="text-emerald-400">TECH</span></span>
+    </div>
+    <div class="text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      Transição Energética & Tecnologia
+    </div>
+  </header>
+
+  <!-- Main Content Box -->
+  <main class="w-full max-w-2xl z-10 my-auto">
+    
+    <!-- TELA 1: INICIAL -->
+    <div id="start-screen" class="glass-card rounded-2xl p-6 sm:p-8 text-center shadow-2xl transition-all duration-300">
+      <div class="inline-flex p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20 text-emerald-400 mb-6">
+        <i data-lucide="cpu" class="w-12 h-12"></i>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 tracking-tight leading-tight">
+        Quiz das <span class="gradient-text">Terras Raras</span>
+      </h1>
+      <p class="text-gray-300 text-sm sm:text-base mb-8 leading-relaxed max-w-xl mx-auto">
+        Descubra o quão bem você conhece os 17 elementos químicos cruciais para a tecnologia moderna, smartphones, carros elétricos e a transição sustentável do planeta.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 text-left">
+        <div class="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 flex items-center gap-3">
+          <i data-lucide="help-circle" class="w-5 h-5 text-emerald-400 flex-shrink-0"></i>
+          <div>
+            <div class="text-xs text-gray-400">Total</div>
+            <div class="text-sm font-semibold text-gray-200">11 Questões</div>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 flex items-center gap-3">
+          <i data-lucide="clock" class="w-5 h-5 text-emerald-400 flex-shrink-0"></i>
+          <div>
+            <div class="text-xs text-gray-400">Tempo</div>
+            <div class="text-sm font-semibold text-gray-200">No seu ritmo</div>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 flex items-center gap-3">
+          <i data-lucide="award" class="w-5 h-5 text-emerald-400 flex-shrink-0"></i>
+          <div>
+            <div class="text-xs text-gray-400">Nível</div>
+            <div class="text-sm font-semibold text-gray-200">Geral / Técnico</div>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 mx-auto text-base">
+        <span>Iniciar Quiz</span>
+        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- TELA 2: PERGUNTAS -->
+    <div id="quiz-screen" class="hidden glass-card rounded-2xl p-6 sm:p-8 shadow-2xl transition-all duration-300">
+      
+      <!-- Topo do Quiz: Progresso -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center text-xs sm:text-sm text-gray-400 mb-2">
+          <span font-medium>Pergunta <span id="current-question-num" class="text-emerald-400 font-bold">1</span> de 11</span>
+          <span id="score-counter" class="text-emerald-400 font-semibold bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-500/20">Pontos: 0</span>
+        </div>
+        <div class="w-full bg-gray-800 h-2.5 rounded-full overflow-hidden p-0.5 border border-gray-700/50">
+          <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-300 w-0"></div>
+        </div>
+      </div>
+
+      <!-- Pergunta -->
+      <h2 id="question-text" class="text-lg sm:text-xl font-bold text-gray-100 mb-6 leading-snug">
+        Texto da Pergunta
+      </h2>
+
+      <!-- Opções de Resposta -->
+      <div id="options-container" class="space-y-3 mb-6">
+        <!-- Inserido dinamicamente via JS -->
+      </div>
+
+      <!-- Explicação / Feedback -->
+      <div id="feedback-box" class="hidden p-4 rounded-xl mb-6 border transition-all text-sm leading-relaxed">
+        <div class="flex items-center gap-2 font-bold mb-1" id="feedback-title"></div>
+        <div id="feedback-text" class="text-gray-300"></div>
+      </div>
+
+      <!-- Botão Próxima -->
+      <div class="flex justify-end">
+        <button id="next-btn" onclick="nextQuestion()" disabled class="px-6 py-3 bg-gray-700 text-gray-400 font-semibold rounded-xl transition-all flex items-center gap-2 cursor-not-allowed">
+          <span>Próxima</span>
+          <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- TELA 3: RESULTADOS -->
+    <div id="result-screen" class="hidden glass-card rounded-2xl p-6 sm:p-8 text-center shadow-2xl transition-all duration-300">
+      <div id="result-badge" class="inline-flex p-4 rounded-full mb-4">
+        <!-- Ícone dinâmico -->
+      </div>
+      
+      <h2 class="text-2xl sm:text-3xl font-extrabold mb-2 text-gray-100">Resultado do Quiz</h2>
+      <p id="result-message" class="text-gray-300 text-sm sm:text-base mb-6 max-w-md mx-auto"></p>
+
+      <!-- Stats Box -->
+      <div class="bg-gray-900/80 rounded-2xl p-6 border border-gray-800 mb-8 max-w-md mx-auto">
+        <div class="text-sm text-gray-400 uppercase tracking-wider mb-1 font-semibold">Sua Pontuação</div>
+        <div class="text-4xl sm:text-5xl font-black text-emerald-400 mb-2" id="score-percentage">0%</div>
+        <div class="text-gray-300 text-sm font-medium" id="score-details">Você acertou 0 de 11 perguntas</div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-3">
+        <button onclick="restartQuiz()" class="px-6 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+          <span>Refazer Quiz</span>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full max-w-3xl text-center py-4 text-xs text-gray-500 z-10 border-t border-gray-800/50 mt-4">
+    Terras Raras &bull; Conhecimento e Sustentabilidade
+  </footer>
+
+  <script>
+    // Banco de Dados do Quiz
+    const quizData = [
+      {
+        question: "1. Quantos elementos químicos fazem parte do grupo das terras raras?",
+        options: [
+          "12 elementos",
+          "17 elementos",
+          "25 elementos"
+        ],
+        correct: 1,
+        explanation: "São 17 elementos: os 15 lantanídeos (como Neodímio e Lantânio) mais o Escândio e o Ítrio, que possuem propriedades químicas semelhantes."
+      },
+      {
+        question: "2. Qual é uma das principais aplicações das terras raras?",
+        options: [
+          "Fabricação de eletrônicos e ímãs",
+          "Produção de alimentos naturais",
+          "Fabricação de combustíveis fósseis"
+        ],
+        correct: 0,
+        explanation: "Eles são fundamentais na produção de superímãs (usados em motores e turbinas), smartphones, telas, lasers e diversos componentes eletrônicos."
+      },
+      {
+        question: "3. Qual país tem grande destaque no processamento de terras raras?",
+        options: [
+          "Argentina",
+          "China",
+          "Portugal"
+        ],
+        correct: 1,
+        explanation: "A China domina a cadeia global de suprimentos, controlando a maior parte da mineração e, principalmente, do refinamento e processamento desses minerais."
+      },
+      {
+        question: "4. Por que as terras raras são importantes para a transição energética?",
+        options: [
+          "Porque substituem todas as fontes de energia",
+          "Porque são usadas em tecnologias como turbinas eólicas e veículos elétricos",
+          "Porque impedem o consumo de eletricidade"
+        ],
+        correct: 1,
+        explanation: "Ímãs de alta eficiência feitos com terras raras (como neodímio e disprósio) são essenciais para os motores de carros elétricos e geradores de turbinas eólicas."
+      },
+      {
+        question: "5. Qual problema ambiental pode estar relacionado à extração de terras raras?",
+        options: [
+          "Contaminação do solo e da água",
+          "Diminuição da gravidade",
+          "Aumento da produção de oxigênio"
+        ],
+        correct: 0,
+        explanation: "A mineração e o refinamento químico usam solventes e geram resíduos que, se não tratados adequadamente, podem contaminar o solo, rios e lençóis freáticos."
+      },
+      {
+        question: "6. O nome “terras raras” significa que esses elementos são sempre muito escassos na natureza?",
+        options: [
+          "Sim, todos são extremamente raros",
+          "Não, alguns são relativamente abundantes, mas podem ser difíceis de separar",
+          "Sim, eles só existem em meteoritos"
+        ],
+        correct: 1,
+        explanation: "Muitos são até mais abundantes na crosta terrestre que o ouro ou a prata. O termo 'rara' vem da dificuldade histórica de encontrá-los puros e de separá-los uns dos outros."
+      },
+      {
+        question: "7. Por que muitos países buscam garantir o acesso às terras raras?",
+        options: [
+          "Porque são essenciais para produzir todos os alimentos",
+          "Porque são importantes para indústrias tecnológicas e estratégicas",
+          "Porque são utilizadas exclusivamente na construção civil"
+        ],
+        correct: 1,
+        explanation: "A dependência desses minerais para setores de defesa, saúde, transição verde e tecnologia torna a garantia de suprimento uma questão de segurança nacional e econômica."
+      },
+      {
+        question: "8. Qual destes elementos faz parte do grupo das terras raras?",
+        options: [
+          "Ferro",
+          "Neodímio",
+          "Carbono"
+        ],
+        correct: 1,
+        explanation: "O Neodímio (Nd) é um dos mais conhecidos do grupo, famoso por ser o componente principal dos ímãs de neodímio de altíssima força magnética."
+      },
+      {
+        question: "9. Qual é uma dificuldade no aproveitamento das terras raras?",
+        options: [
+          "A dificuldade de separar os elementos e purificá-los",
+          "A impossibilidade de utilizá-las na indústria",
+          "A ausência desses elementos na crosta terrestre"
+        ],
+        correct: 0,
+        explanation: "Como esses elementos possuem propriedades químicas extremamente semelhantes, o processo de separação industrial e purificação é complexo e exige alto custo operacional e tecnológico."
+      },
+      {
+        question: "10. Qual tecnologia utiliza terras raras em sua fabricação?",
+        options: [
+          "Lápis de madeira comum",
+          "Sacolas de papel",
+          "Motores de veículos elétricos"
+        ],
+        correct: 2,
+        explanation: "Motores elétricos avançados utilizam ímãs permanentes de terras raras para obterem maior eficiência energética e potência em tamanho reduzido."
+      },
+      {
+        question: "11. Qual medida pode ajudar a reduzir os impactos ambientais associados às terras raras?",
+        options: [
+          "Descartar aparelhos eletrônicos em rios",
+          "Reciclar equipamentos eletrônicos e melhorar os processos de extração",
+          "Aumentar o desperdício de materiais tecnológicos"
+        ],
+        correct: 1,
+        explanation: "A reciclagem de e-lixo e o desenvolvimento de métodos de extração mais limpos (como a mineração verde) ajudam a diminuir a necessidade de novas mina e mitigam danos ambientais."
+      }
+    ];
+
+    // Variáveis de Estado
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+
+    // Elementos do DOM
+    const startScreen = document.getElementById('start-screen');
+    const quizScreen = document.getElementById('quiz-screen');
+    const resultScreen = document.getElementById('result-screen');
+    
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const currentQuestionNum = document.getElementById('current-question-num');
+    const scoreCounter = document.getElementById('score-counter');
+    const progressBar = document.getElementById('progress-bar');
+    
+    const feedbackBox = document.getElementById('feedback-box');
+    const feedbackTitle = document.getElementById('feedback-title');
+    const feedbackText = document.getElementById('feedback-text');
+    const nextBtn = document.getElementById('next-btn');
+
+    // Inicialização do Lucide Icons
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+
+    function startQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      startScreen.classList.add('hidden');
+      quizScreen.classList.remove('hidden');
+      resultScreen.classList.add('hidden');
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      selectedOption = null;
+      const data = quizData[currentQuestion];
+
+      // Atualizar UI de Progresso
+      currentQuestionNum.innerText = currentQuestion + 1;
+      scoreCounter.innerText = `Pontos: ${score}`;
+      const progressPercent = ((currentQuestion + 1) / quizData.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      // Atualizar Pergunta
+      questionText.innerText = data.question;
+
+      // Resetar Feedback e Botão Próximo
+      feedbackBox.classList.add('hidden');
+      nextBtn.disabled = true;
+      nextBtn.className = "px-6 py-3 bg-gray-800 text-gray-500 font-semibold rounded-xl transition-all flex items-center gap-2 cursor-not-allowed";
+
+      // Renderizar Opções
+      optionsContainer.innerHTML = '';
+      data.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-left p-4 rounded-xl border border-gray-800 bg-gray-900/50 hover:bg-gray-800/80 hover:border-gray-700 transition-all flex items-center justify-between group";
+        btn.onclick = () => selectOption(index);
+        
+        btn.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg bg-gray-800 text-gray-300 font-medium flex items-center justify-center text-xs group-hover:bg-emerald-500/20 group-hover:text-emerald-400 transition-colors">
+              ${String.fromCharCode(65 + index)}
+            </span>
+            <span class="text-sm sm:text-base text-gray-200 font-medium">${opt}</span>
+          </div>
+          <div class="status-icon"></div>
+        `;
+        optionsContainer.appendChild(btn);
+      });
+
+      lucide.createIcons();
+    }
+
+    function selectOption(index) {
+      if (selectedOption !== null) return; // Impede alterar após selecionar
+      selectedOption = index;
+
+      const data = quizData[currentQuestion];
+      const isCorrect = index === data.correct;
+
+      if (isCorrect) {
+        score++;
+        scoreCounter.innerText = `Pontos: ${score}`;
+      }
+
+      // Estilizar opções após escolha
+      const buttons = optionsContainer.querySelectorAll('button');
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        btn.classList.remove('hover:bg-gray-800/80', 'hover:border-gray-700');
+
+        if (idx === data.correct) {
+          btn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950/40 transition-all flex items-center justify-between";
+          btn.querySelector('.status-icon').innerHTML = `<i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>`;
+        } else if (idx === index && !isCorrect) {
+          btn.className = "w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-950/40 transition-all flex items-center justify-between";
+          btn.querySelector('.status-icon').innerHTML = `<i data-lucide="x-circle" class="w-5 h-5 text-rose-400"></i>`;
+        } else {
+          btn.classList.add('opacity-40');
+        }
+      });
+
+      // Exibir Feedback
+      feedbackBox.classList.remove('hidden');
+      if (isCorrect) {
+        feedbackBox.className = "p-4 rounded-xl mb-6 border bg-emerald-950/50 border-emerald-500/30 text-emerald-200";
+        feedbackTitle.innerHTML = `<i data-lucide="check" class="w-5 h-5 text-emerald-400"></i> Resposta Correta!`;
+      } else {
+        feedbackBox.className = "p-4 rounded-xl mb-6 border bg-rose-950/50 border-rose-500/30 text-rose-200";
+        feedbackTitle.innerHTML = `<i data-lucide="alert-circle" class="w-5 h-5 text-rose-400"></i> Resposta Incorreta`;
+      }
+      feedbackText.innerText = data.explanation;
+
+      // Habilitar Botão Próximo
+      nextBtn.disabled = false;
+      nextBtn.className = "px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer";
+
+      lucide.createIcons();
+    }
+
+    function nextQuestion() {
+      if (selectedOption === null) return;
+
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizScreen.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+
+      const percentage = Math.round((score / quizData.length) * 100);
+      document.getElementById('score-percentage').innerText = `${percentage}%`;
+      document.getElementById('score-details').innerText = `Você acertou ${score} de ${quizData.length} perguntas`;
+
+      const resultBadge = document.getElementById('result-badge');
+      const resultMessage = document.getElementById('result-message');
+
+      if (percentage >= 80) {
+        resultBadge.className = "inline-flex p-4 rounded-full mb-4 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400";
+        resultBadge.innerHTML = `<i data-lucide="trophy" class="w-12 h-12"></i>`;
+        resultMessage.innerText = "Excelente! Você demonstra um conhecimento avançado sobre as terras raras e seu papel estratégico no mundo moderno!";
+      } else if (percentage >= 50) {
+        resultBadge.className = "inline-flex p-4 rounded-full mb-4 bg-blue-500/20 border border-blue-500/40 text-blue-400";
+        resultBadge.innerHTML = `<i data-lucide="thumbs-up" class="w-12 h-12"></i>`;
+        resultMessage.innerText = "Bom trabalho! Você possui bons conhecimentos sobre a relevância e as características das terras raras.";
+      } else {
+        resultBadge.className = "inline-flex p-4 rounded-full mb-4 bg-amber-500/20 border border-amber-500/40 text-amber-400";
+        resultBadge.innerHTML = `<i data-lucide="book-open" class="w-12 h-12"></i>`;
+        resultMessage.innerText = "Vale a pena revisar! Terras raras são fundamentais para o nosso futuro tecnológico e ecológico.";
+      }
+
+      lucide.createIcons();
+    }
+
+    function restartQuiz() {
+      startQuiz();
+    }
+  </script>
+</body>
+</html>
